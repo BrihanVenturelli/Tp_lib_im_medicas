@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: bioimagenes
+Version: 0.1.0
+Summary: Librería de procesamiento de imágenes médicas
+Requires-Python: >=3.10
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Dynamic: license-file
