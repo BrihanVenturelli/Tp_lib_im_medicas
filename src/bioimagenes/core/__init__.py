@@ -1,0 +1,1 @@
+from .historial import Historial # Importamos Historial para usarlo en el paquete core.
