@@ -1,29 +1,45 @@
 
-# Primeras pruebas de testeo de la primera clase imagen.py y Principal del proyecto
+import numpy as np
 
-#import numpy as np
-#from bioimagenes.core.imagen import Imagen
-
-
-#def test_basico():
- #   print("\n--- TEST BÁSICO ---")
-
-  #  data = np.random.randint(0, 255, (50, 50))
-   # img = Imagen(data)
-
-    #print(img)
-    #print("Cantidad de pixeles:", len(img))
-    #print("Pixel [0,0]:", img[0, 0])
-
-    #img.visualizar()
-
-    #print("--- FIN ---\n")
+from bioimagenes.core.imagen import Imagen
+from bioimagenes.filtros.filtro import Filtro
 
 
-#if __name__ == "__main__":
- #   test_basico()
+def test_crear_imagen():
+    data = np.ones((10, 10))
+
+    img = Imagen(data)
+
+    assert img.data.shape == (10, 10)
+    assert img.info["dimensiones"] == (10, 10)
 
 
-# Para pobre el primer test se debe de correr con : python tests/test_imagen.py
-# Dicho testeo nos mostrara una ventana con una imagen pixelada
-# cabe aclarar que como interprete de python estamos usando minconda. 
+def test_len_imagen():
+    data = np.ones((10, 10))
+
+    img = Imagen(data)
+
+    assert len(img) == 100
+
+
+def test_getitem_imagen():
+    data = np.ones((10, 10))
+
+    img = Imagen(data)
+
+    assert img[0, 0] == 1
+
+
+def test_aplicar_filtro():
+    data = np.random.randint(0, 255, (10, 10))
+
+    img = Imagen(data)
+
+    kernel = np.ones((3, 3)) / 9
+    filtro = Filtro("Promedio", kernel)
+
+    img.aplicar_filtro(filtro)
+
+    assert img.data.shape == (10, 10)
+    assert len(img.info.historial) == 1
+    assert img.info.historial.ultimo_cambio == "Filtro aplicado: Promedio"
