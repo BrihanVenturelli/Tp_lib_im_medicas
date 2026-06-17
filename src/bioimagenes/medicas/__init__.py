@@ -1,0 +1,3 @@
+from .imagen_termografica import ImagenTermografica
+from .imagen_radiografia import ImagenRadiografia
+from .imagen_tomografia import ImagenTomografia
