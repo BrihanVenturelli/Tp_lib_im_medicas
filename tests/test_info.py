@@ -1,3 +1,5 @@
+import pytest
+
 from bioimagenes.core.info import Info
 from bioimagenes.core.historial import Historial
 
@@ -22,3 +24,23 @@ def test_get_info():
 
     assert info.get("tipo") == "Imagen"
     assert info.get("no_existe", "default") == "default"
+
+
+def test_actualizar_info():
+    info = Info()
+
+    info.actualizar("tipo", "Imagen")
+
+    assert info["tipo"] == "Imagen"
+
+
+def test_error_datos_no_diccionario():
+
+    with pytest.raises(TypeError):
+        Info(datos="no soy diccionario")
+
+
+def test_error_historial_no_valido():
+
+    with pytest.raises(TypeError):
+        Info(historial="no soy historial")
