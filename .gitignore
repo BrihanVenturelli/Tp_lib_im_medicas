@@ -2,3 +2,9 @@
 __pycache__/
 *.pyc
 venv/
+
+# Datos de prueba locales
+data/
+
+# Tomografías NIfTI
+*.nii

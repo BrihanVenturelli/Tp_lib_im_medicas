@@ -1,14 +1,10 @@
 # Tp_lib_im_medicas
-Trabajo Integrador : Librería para el  procesamiento y análisis  de imágenes médicas
-# Estructura de carpetas
-# Diagrama UML
-
-
-# Tp_lib_im_medicas
 
 Trabajo Integrador de Programación Orientada a Objetos.
 
-Librería desarrollada en Python para el procesamiento y análisis básico de imágenes médicas, implementando conceptos de encapsulamiento, herencia, modularización y pruebas unitarias.
+Librería desarrollada en Python para el procesamiento y análisis de imágenes médicas, implementando conceptos de encapsulamiento, herencia, modularización y pruebas unitarias.
+
+---
 
 ## Objetivos
 
@@ -23,10 +19,26 @@ Librería desarrollada en Python para el procesamiento y análisis básico de im
   * Tomografía
 * Verificar el correcto funcionamiento mediante pruebas unitarias.
 
+---
+
 ## Estructura de carpetas
 
 ```text
 Tp_lib_im_medicas/
+│
+├── data/
+│   ├── radiografias/
+│   ├── termografias/
+│   └── tomografias/
+│
+├── docs/
+│   ├── examples/
+│   │   ├── ejemplo_radiografia.py
+│   │   ├── ejemplo_termografica.py
+│   │   └── ejemplo_tomografia.py
+│   │
+│   └── uml/
+│       └── uml.jpg
 │
 ├── src/
 │   └── bioimagenes/
@@ -47,10 +59,20 @@ Tp_lib_im_medicas/
 │       └── __version__.py
 │
 ├── tests/
+│   ├── test_historial.py
+│   ├── test_info.py
+│   ├── test_imagen.py
+│   ├── test_filtro.py
+│   ├── test_radiografia.py
+│   ├── test_termografica.py
+│   └── test_tomografia.py
 │
 ├── README.md
-└── pyproject.toml
+├── pyproject.toml
+└── .gitignore
 ```
+
+---
 
 ## Clases implementadas
 
@@ -58,14 +80,28 @@ Tp_lib_im_medicas/
 
 Permite registrar los cambios realizados sobre una imagen.
 
+Funciones principales:
+
+* Registrar cambios.
+* Consultar el último cambio realizado.
+* Obtener la cantidad de cambios registrados.
+* Visualizar el historial completo.
+
+---
+
 ### Info
 
-Almacena metadatos asociados a una imagen:
+Almacena metadatos asociados a una imagen.
 
-* dimensiones
-* brillo
-* tipo
-* estado de recorte
+Información almacenada:
+
+* Dimensiones.
+* Brillo promedio.
+* Tipo de imagen.
+* Estado de recorte.
+* Parámetros específicos según el estudio.
+
+---
 
 ### Imagen
 
@@ -73,47 +109,71 @@ Clase base para representar imágenes bidimensionales o tridimensionales.
 
 Funciones principales:
 
-* visualización
-* conversión a blanco y negro
-* aplicación de filtros
-* acceso a píxeles
+* Visualización.
+* Conversión a blanco y negro.
+* Aplicación de filtros.
+* Acceso a píxeles.
+* Gestión de metadatos.
+* Gestión de historial.
+
+---
 
 ### Filtro
 
 Representa filtros basados en kernels y permite realizar convoluciones.
 
-### ImagenTermografica
+Funciones principales:
 
-Clase especializada para imágenes térmicas.
+* Validación de kernels.
+* Aplicación de convoluciones.
+* Procesamiento mediante filtros personalizados.
 
-Funciones:
-
-* conversión a temperatura
-* detección de puntos calientes
-* normalización
-* mapa de calor
+---
 
 ### ImagenRadiografia
 
 Clase especializada para radiografías.
 
-Funciones:
+Funciones implementadas:
 
-* mejora de contraste
-* ecualización
-* inversión de intensidades
-* selección de regiones de interés (ROI)
+* Mejora de contraste.
+* Inversión de intensidades.
+* Ecualización de histograma.
+* Detección de bordes.
+* Selección de regiones de interés (ROI).
+* Visualización de clusters.
+
+---
+
+### ImagenTermografica
+
+Clase especializada para imágenes térmicas.
+
+Funciones implementadas:
+
+* Conversión de intensidad a temperatura.
+* Generación de mapas de calor.
+* Detección de puntos calientes.
+* Segmentación por umbral.
+* Normalización de imágenes.
+
+---
 
 ### ImagenTomografia
 
-Clase especializada para tomografías.
+Clase especializada para tomografías tridimensionales.
 
-Funciones:
+Funciones implementadas:
 
-* obtención de cortes (slices)
-* normalización de intensidades
-* aplicación de ventanas
-* visualización por tejidos
+* Obtención de slices.
+* Visualización de cortes.
+* Normalización de intensidades.
+* Aplicación de ventanas.
+* Ventanas específicas por tejido.
+* Visualización coloreada de tejidos.
+* Representación simplificada de volúmenes 3D.
+
+---
 
 ## Instalación
 
@@ -123,32 +183,142 @@ Instalar el proyecto en modo editable:
 pip install -e .
 ```
 
+---
+
 ## Dependencias
+
+El proyecto utiliza las siguientes librerías:
 
 * numpy
 * matplotlib
 * pytest
+* opencv-python
+* nibabel
+
+Instalación manual de dependencias:
+
+```bash
+pip install numpy matplotlib pytest opencv-python nibabel
+```
+
+O bien instalar el proyecto completo en modo editable:
+
+```bash
+pip install -e .
+```
+
+---
 
 ## Ejecución de pruebas
 
-Ejecutar todos los tests:
+Ejecutar todos los tests unitarios:
 
 ```bash
 pytest
 ```
 
-Ejecutar un archivo específico:
+Ejecutar una prueba específica:
 
 ```bash
 pytest tests/test_tomografia.py
 ```
 
+---
+
+## Ejemplos de uso con imágenes reales
+
+Durante el desarrollo se validó la librería utilizando imágenes médicas reales proporcionadas por la cátedra y almacenadas en la carpeta `data`.
+
+### Radiografía
+
+Ejecutar:
+
+```bash
+python docs/examples/ejemplo_radiografia.py
+```
+
+Permite:
+
+* Cargar una radiografía real.
+* Mejorar contraste.
+* Ecualizar histograma.
+* Detectar bordes.
+* Seleccionar regiones de interés (ROI).
+* Consultar historial de cambios.
+
+---
+
+### Termografía
+
+Ejecutar:
+
+```bash
+python docs/examples/ejemplo_termografica.py
+```
+
+Permite:
+
+* Cargar una termografía real.
+* Generar mapas de calor.
+* Detectar puntos calientes.
+* Segmentar regiones según temperatura.
+* Normalizar intensidades.
+* Consultar historial de procesamiento.
+
+---
+
+### Tomografía
+
+Ejecutar:
+
+```bash
+python docs/examples/ejemplo_tomografia.py
+```
+
+Permite:
+
+* Cargar un volumen médico real en formato NIfTI (.nii).
+* Obtener cortes (slices) del volumen.
+* Visualizar cortes tomográficos.
+* Aplicar ventanas de visualización.
+* Visualizar tejidos mediante colores.
+* Representar información del volumen 3D.
+* Consultar historial de procesamiento.
+
+---
+
+## Resultados de validación
+
+La librería fue validada mediante:
+
+* Pruebas unitarias automatizadas.
+* Imágenes sintéticas generadas con NumPy.
+* Radiografías reales (.png).
+* Termografías reales (.jpg).
+* Tomografías reales (.nii).
+
+Resultados obtenidos:
+
+
+✔ Validación funcional con imágenes médicas reales proporcionadas por la cátedra.
+
+✔ Procesamiento exitoso de radiografías, termografías y tomografías.
+
+---
+
 ## Diagrama UML
 
-(Insertar aquí la imagen UML o el enlace al diagrama actualizado).
+El diagrama UML del proyecto se encuentra en:
+
+```text
+docs/uml/uml.jpg
+```
+
+---
 
 ## Autor
 
 Brihan Venturelli
 
 Ingeniería Biomédica
+
